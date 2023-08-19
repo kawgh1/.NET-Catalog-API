@@ -18,6 +18,7 @@ namespace Catalog
             CreateHostBuilder(args).Build().Run();
         }
 
+        // Host Configuration
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
