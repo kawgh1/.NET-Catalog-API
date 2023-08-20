@@ -26,8 +26,11 @@
   - `docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db mongo`
     - `-d` - dont attach to the process, just run it and let it go
     - `-rm` - destroy the container after you are done, dont keep it running
+    - `--name` - name of the Container you are creating
     - `-p` - the port
     - `-v` - the MongoDB volume, so you dont destroy the data when you stop the Docker Container
+    - `mongodbdata:/data/db mongo` - store your DB data at this file path in Mongo to persist the data after the Container has closed
 
+  <br>
 - View running Docker processes
   - `docker ps`
