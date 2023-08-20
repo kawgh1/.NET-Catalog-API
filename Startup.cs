@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.Repositories;
+using Catalog.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 
 namespace Catalog
 {
@@ -28,7 +33,20 @@ namespace Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IItemsRepository, InMemoryItemsRepository>(); // register dependencies
+            // tells Mongo any time you see a Guid or DateTimeOffset, it should serialize it as a string
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+            
+            // start Mongo Client instance
+            services.AddSingleton<IMongoClient>(serviceProvider =>
+            {
+                var settings = Configuration.GetSection(nameof(MongoDBSettings)).Get<MongoDBSettings>();
+                return new MongoClient(settings.ConnectionString);
+            });
+            
+            // services.AddSingleton<IItemsRepository, InMemoryItemsRepository>(); // register dependencies
+            services.AddSingleton<IItemsRepository, MongoDBItemsRepository>(); // register dependencies
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
