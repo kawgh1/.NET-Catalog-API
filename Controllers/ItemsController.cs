@@ -14,18 +14,18 @@ namespace Catalog.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemsRepository _repository;
+        private readonly IItemsRepository _itemsRepository;
 
         public ItemsController(IItemsRepository repository)
         {
-            this._repository = repository;
+            this._itemsRepository = repository;
         }
 
         // GET /items
         [HttpGet]
         public IEnumerable<ItemDto> GetItems()
         {
-            var items = _repository.GetItems().Select(item => item.AsDto());
+            var items = _itemsRepository.GetItems().Select(item => item.AsDto());
             return items;
         }
         
@@ -33,7 +33,7 @@ namespace Catalog.Controllers
         [HttpGet("{id}")]
         public ActionResult<ItemDto> GetItem(Guid id)
         {
-            var item = _repository.GetItem(id);
+            var item = _itemsRepository.GetItem(id);
             if (item is null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace Catalog.Controllers
                 CreatedDate = DateTimeOffset.UtcNow
             };
             
-            _repository.CreateItem(item);
+            _itemsRepository.CreateItem(item);
 
             return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item.AsDto());
         }
@@ -62,7 +62,7 @@ namespace Catalog.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateIte(Guid id, UpdateItemDto itemDto)
         {
-            var existingItem = _repository.GetItem(id);
+            var existingItem = _itemsRepository.GetItem(id);
             if (existingItem is null)
             {
                 return NotFound();
@@ -74,21 +74,21 @@ namespace Catalog.Controllers
                 Price = itemDto.Price
             };
             
-            _repository.UpdateItem(updatedItem);
+            _itemsRepository.UpdateItem(updatedItem);
 
             return NoContent();
         }
         
         // DELETE /Items/{id}
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteItem(Guid id)
         {
-            var existingItem = _repository.GetItem(id);
+            var existingItem = _itemsRepository.GetItem(id);
             if (existingItem is null)
             {
                 return NotFound();
             }
-            _repository.DeleteItem(existingItem);
+            _itemsRepository.DeleteItem(existingItem.Id);
             return NoContent();
         }
     }
