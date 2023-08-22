@@ -56,7 +56,8 @@
       - So at this point, our DB knows about requiring user authentication we have set, but our Services do not know about it
         - Set these in `appsettings.json` and the `.NET Secret Manager`
 
-- `.NET Secret Manager` - Generally dont use this in Prod
+- ### .NET Secret Manager 
+  - #### Generally dont use this in Prod
   - `dotnet user-secrets init`
     - `Set UserSecretsId to '7ee7c261-9b12-4f9e-9fc0-de16f4fd7384' for MSBuild project '/Users/j/Desktop/Catalog/Catalog.csproj'.`
   - to add a secret
