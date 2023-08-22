@@ -197,5 +197,36 @@
   - View Docker Images to verify the image was created
     - `docker images`
       - should see `catalog v1 ...`
-  - Run the Container with interactive tag `-it` to see the logs
+  - Run the Container in Prod with interactive tag `-it` to see the logs
     - `docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=password1 --network=net5tutorial catalog:v1`
+    - ![docker-production-run](https://raw.githubusercontent.com/kawgh1/.NET-Catalog-API/main/Images/docker-production-run.png)
+      - notice `Hosting environment: Production`
+      - to test in production send GET request to http://localhost:8080/items
+        - verify a `200` response, verify in console, no `307` redirect --> means we're in Prod and not Dev environment
+  
+<br>
+
+  - How to share our Docker Image
+      - We can share our Docker Image publicly on https://hub.docker.com
+      - `docker login` in terminal with docker credentials
+        - View images
+          - `docker images`
+        - Tag our image
+          - `docker tag catalog:v1 {docker-username}/catalog:v1`
+        - Verify new image created
+          - `docker images`
+        - Push new image to Docker Hub
+          - `docker push {docker-username}/catalog:v1`
+        - To test locally, remove the local images and pull down from Docker Hub
+          - `docker images`
+          - `docker rmi {docker-username}/catalog:v1`
+          - `docker rmi catalog:v1`
+          - Logout of Docker to verify it is a public image
+            - `docker logout`
+          - Verify your public image can be run publicly (not logged into Docker)
+            - `docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=password1 --network=net5tutorial {docker-username}/catalog:v1`
+          - Pull down to local
+            - `docker pull {docker-username}/catalog:v1`
+          - Verify
+            - `docker images`
+            - Should see the pulled down image
