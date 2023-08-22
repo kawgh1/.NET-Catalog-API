@@ -225,6 +225,7 @@
             - `docker logout`
           - Verify your public image can be run publicly (not logged into Docker)
             - `docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=password1 --network=net5tutorial {docker-username}/catalog:v1`
+            - ![run-docker-image-publicly](https://raw.githubusercontent.com/kawgh1/.NET-Catalog-API/main/Images/run-docker-image-publicly.png)
           - Pull down to local
             - `docker pull {docker-username}/catalog:v1`
           - Verify
