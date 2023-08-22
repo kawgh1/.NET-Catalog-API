@@ -100,3 +100,7 @@
             ]
       }`
     - More customization options can be seen here https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks for all kinds or BackEnd stuff including AWS, Kafka, RabbitMQ, SendGrid, Kubernetes, Azure, etc.
+  
+    <br>
+  
+- ## Docker
