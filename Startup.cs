@@ -47,7 +47,10 @@ namespace Catalog
             // services.AddSingleton<IItemsRepository, InMemoryItemsRepository>(); // register dependencies
             services.AddSingleton<IItemsRepository, MongoDBItemsRepository>(); // register dependencies
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false; // tells .NET not to remove 'Async' from method names at runtime
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog", Version = "v1" });
