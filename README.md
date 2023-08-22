@@ -104,3 +104,20 @@
     <br>
   
 - ## Docker
+  - Problems Docker helps solve / simplify
+    - What kind of machine is my server going to run on?
+      - Physical machine? Virtual Machine?
+        - Linux? Windows? Be sure to pick the right OS version for your needs
+    - How are we getting files to and from our server?
+    - What if DB requires different version of OS or dependencies?
+    - What if we want to move to a new version of .NET?
+    - How do we quickly start the REST API on the machine?
+    - What if one instance of the API or service is not enough to handle the load?
+
+  - ### Dockerfile
+    - The Dockerfile can set configurations for:
+      - OS
+      - .NET / ASP.NET Core Runtime
+      - Dependencies
+      - Where to place the files in the file system
+      - How to star the REST API
