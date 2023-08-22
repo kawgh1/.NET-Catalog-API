@@ -121,3 +121,7 @@
       - Dependencies
       - Where to place the files in the file system
       - How to star the REST API
+
+    <br>
+
+  - ![docker-to-the-rescue](https://raw.githubusercontent.com/kawgh1/.NET-Catalog-API/main/Images/docker-to-the-rescue.png)
